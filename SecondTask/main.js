@@ -3,16 +3,16 @@ import View from './view.js';
 let tasks = [];
 let taskId = 0;
 
-const addTask = (text) => {
+const addTask = (text, priority) => {
     const newTask = {
         id: taskId++,
         text: text,
         completed: false,
-        priority: 'LOW' // По умолчанию низкий приоритет
+        priority: priority // Используем выбранный приоритет
     };
     tasks.push(newTask);
     View.renderTask(newTask);
-    View.clearInput();
+    View.clearInput(priority);
 };
 
 const deleteTask = (id) => {

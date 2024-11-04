@@ -13,23 +13,27 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-h1 {
+h1, h2 {
     text-align: center;
+}
+
+.task-list-container {
+    margin-bottom: 20px;
 }
 
 .add-task {
     display: flex;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
-#new-task {
+.add-task input {
     flex: 1;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
 }
 
-#add-task-btn {
+.add-task button {
     padding: 10px 20px;
     background-color: #28a745;
     color: #fff;
@@ -58,12 +62,6 @@ h1 {
 .task-list li .task-text {
     flex: 1;
     margin-left: 10px;
-}
-
-.task-list li .task-priority {
-    margin-left: 10px;
-    font-size: 0.8em;
-    color: #888;
 }
 
 .task-list li .delete-task {

@@ -6,7 +6,6 @@ const View = {
         taskElement.innerHTML = `
             <div class="complete-task" data-id="${task.id}"></div>
             <div class="task-text">${task.text}</div>
-            <div class="task-priority">${task.priority}</div>
             <div class="delete-task" data-id="${task.id}">✖</div>
         `;
 
@@ -14,37 +13,44 @@ const View = {
             taskElement.querySelector('.complete-task').classList.add('completed');
         }
 
-        document.querySelector('.task-list').appendChild(taskElement);
+        document.querySelector(`.task-list.${task.priority.toLowerCase()}`).appendChild(taskElement);
     },
 
-    clearInput() {
-        document.getElementById('new-task').value = '';
+    clearInput(priority) {
+        document.getElementById(`new-task-${priority.toLowerCase()}`).value = '';
     },
 
     bindAddTask(handler) {
-        document.getElementById('add-task-btn').addEventListener('click', () => {
-            const input = document.getElementById('new-task');
-            if (input.value.trim()) {
-                handler(input.value.trim());
-            }
+        document.querySelectorAll('.add-task-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const priority = button.getAttribute('data-priority');
+                const input = document.getElementById(`new-task-${priority.toLowerCase()}`);
+                if (input.value.trim()) {
+                    handler(input.value.trim(), priority);
+                }
+            });
         });
     },
 
     bindDeleteTask(handler) {
-        document.querySelector('.task-list').addEventListener('click', (event) => {
-            if (event.target.classList.contains('delete-task')) {
-                const id = event.target.getAttribute('data-id');
-                handler(id);
-            }
+        document.querySelectorAll('.task-list').forEach(list => {
+            list.addEventListener('click', (event) => {
+                if (event.target.classList.contains('delete-task')) {
+                    const id = event.target.getAttribute('data-id');
+                    handler(id);
+                }
+            });
         });
     },
 
     bindCompleteTask(handler) {
-        document.querySelector('.task-list').addEventListener('click', (event) => {
-            if (event.target.classList.contains('complete-task')) {
-                const id = event.target.getAttribute('data-id');
-                handler(id);
-            }
+        document.querySelectorAll('.task-list').forEach(list => {
+            list.addEventListener('click', (event) => {
+                if (event.target.classList.contains('complete-task')) {
+                    const id = event.target.getAttribute('data-id');
+                    handler(id);
+                }
+            });
         });
     }
 };
